@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <a href="/">🏠 Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+</nav>
+
+<h1>🛒 Shopping Cart</h1>
+
+{% if cart %}
+
+<div class="products">
+
+    {% for product in cart %}
+
+    <div class="card">
+
+        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+
+        <h2>{{ product.name }}</h2>
+
+        <p>₹{{ product.price }}</p>
+
+<p>Quantity: {{ product.quantity }}</p>
+
+<a href="/increase/{{ product.id }}">
+    <button>➕</button>
+</a>
+<a href="/decrease/{{ product.id }}">
+    <button>➖</button>
+</a>
+
+<a href="/remove_from_cart/{{ product.id }}">
+    <button>Remove</button>
+</a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<br>
+<hr>
+
+<h2>Total: ₹{{ total }}</h2>
+
+<br>
+
+<a href="/checkout">
+    <button>Proceed to Checkout</button>
+</a>
+<br><br>
+
+
+<a href="/">⬅ Continue Shopping</a>
+
+{% else %}
+
+<h2>Your Cart is Empty 😔</h2>
+
+<a href="/">⬅ Continue Shopping</a>
+
+{% endif %}
+
+</body>
+</html>

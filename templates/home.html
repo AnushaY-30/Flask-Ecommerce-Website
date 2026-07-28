@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My E-Commerce Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+<nav>
+    <a href="/" style="color: yellow;">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+</nav>
+
+    <h1>🛒 People's Store</h1>
+
+    <!-- Search Bar -->
+    <form action="/" method="GET">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search products..."
+            value="{{ search }}"
+        >
+
+        <button type="submit">Search</button>
+
+    </form>
+
+    <br>
+
+    <!-- Category Buttons -->
+    <div style="margin-bottom:20px;">
+
+        <a href="/">
+            <button type="button">All</button>
+        </a>
+
+        <a href="/?category=Mouse">
+            <button type="button">Mouse</button>
+        </a>
+
+        <a href="/?category=Keyboard">
+            <button type="button">Keyboard</button>
+        </a>
+
+        <a href="/?category=Headphones">
+            <button type="button">Headphones</button>
+        </a>
+
+    </div>
+
+    {% if products %}
+
+    <div class="products">
+
+        {% for product in products %}
+
+        <div class="card">
+
+            <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+
+            <h2>{{ product.name }}</h2>
+
+            <p>₹{{ product.price }}</p>
+
+            <p>{{ product.description }}</p>
+
+            <a href="/add_to_cart/{{ product.id }}">
+                <button>Add to Cart</button>
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <h2>No Products Found 😔</h2>
+
+    {% endif %}
+
+    <footer>
+        <p>© 2026 People's Store | All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

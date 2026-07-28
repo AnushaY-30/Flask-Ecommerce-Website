@@ -1,0 +1,148 @@
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1{
+    color: #2c3e50;
+    margin-top: 30px;
+}
+
+/* Navigation */
+
+nav{
+    background: #2c3e50;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover{
+    color: yellow;
+}
+
+/* Products */
+
+.products{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.card{
+    background: white;
+    width: 250px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px gray;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px gray;
+}
+
+/* Buttons */
+
+button{
+    background: blue;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover{
+    background: darkblue;
+    transform: scale(1.05);
+}
+
+/* About Page */
+
+.about-card{
+    width: 60%;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    line-height: 1.8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* Contact Page */
+
+.contact-box{
+    width: 400px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px gray;
+    text-align: left;
+}
+
+.contact-box p{
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+/* Footer */
+
+footer{
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 50px;
+}
+.card img{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+.card img{
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.card img:hover{
+    transform: scale(1.08);
+    transition: 0.3s;
+}
+.card p{
+    color: #555;
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+.card h2{
+    color: #2c3e50;
+    margin-top: 10px;
+}
