@@ -328,6 +328,35 @@ def remove_from_cart(id):
 
     return redirect("/cart")
 
+@app.route("/admin")
+def admin():
+    return render_template("admin.html")
+
+@app.route("/add_product", methods=["POST"])
+def add_product():
+    
+    print("ADD PRODUCT ROUTE CALLED")
+
+    name = request.form["name"]
+    price = request.form["price"]
+    category = request.form["category"]
+    image = request.form["image"]
+    description = request.form["description"]
+
+    cursor.execute(
+        """
+        INSERT INTO products(name, price, image, description, category)
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        (name, price, image, description, category)
+    )
+
+    conn.commit()
+    cursor.execute("SELECT * FROM products")
+    print(cursor.fetchall())
+
+    return redirect("/admin")
+
 @app.route("/checkout")
 def checkout():
     return render_template("checkout.html")

@@ -6,6 +6,7 @@
 </head>
 
 <body>
+
 <nav>
     <a href="/" style="color: yellow;">Home</a>
     <a href="/about">About</a>
@@ -14,80 +15,83 @@
     <a href="/register">Register</a>
 </nav>
 
-    <h1>🛒 People's Store</h1>
+<h1>🛒 People's Store</h1>
 
-    <!-- Search Bar -->
-    <form action="/" method="GET">
+<!-- Search Form -->
+<form action="/" method="GET">
+    <input
+        type="text"
+        name="search"
+        placeholder="Search Products"
+        value="{{ search }}"
+    >
+    <button type="submit">Search</button>
+</form>
 
-        <input
-            type="text"
-            name="search"
-            placeholder="Search products..."
-            value="{{ search }}"
-        >
+<br>
 
-        <button type="submit">Search</button>
+<!-- Category Buttons -->
+<div style="margin-bottom:20px;">
 
-    </form>
+    <a href="/">
+        <button type="button">All</button>
+    </a>
 
-    <br>
+    <a href="/?category=Mouse">
+        <button type="button">Mouse</button>
+    </a>
 
-    <!-- Category Buttons -->
-    <div style="margin-bottom:20px;">
+    <a href="/?category=Keyboard">
+        <button type="button">Keyboard</button>
+    </a>
 
-        <a href="/">
-            <button type="button">All</button>
-        </a>
+    <a href="/?category=Headphones">
+        <button type="button">Headphones</button>
+    </a>
 
-        <a href="/?category=Mouse">
-            <button type="button">Mouse</button>
-        </a>
+</div>
 
-        <a href="/?category=Keyboard">
-            <button type="button">Keyboard</button>
-        </a>
+{% if products %}
 
-        <a href="/?category=Headphones">
-            <button type="button">Headphones</button>
+<div class="products">
+
+    {% for product in products %}
+
+    <div class="card">
+
+        <a href="/product/{{ product.id }}">
+    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+</a>
+
+      <h2>
+    <a href="/product/{{ product.id }}" style="text-decoration: none; color: black;">
+        {{ product.name }}
+    </a>
+</h2>
+
+        <p>₹{{ product.price }}</p>
+
+        <p>{{ product.description }}</p>
+
+        <a href="/add_to_cart/{{ product.id }}">
+            <button>Add to Cart</button>
         </a>
 
     </div>
 
-    {% if products %}
+    {% endfor %}
 
-    <div class="products">
+</div>
 
-        {% for product in products %}
+{% else %}
 
-        <div class="card">
+<h2>No Products Found 😔</h2>
 
-            <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+{% endif %}
 
-            <h2>{{ product.name }}</h2>
-
-            <p>₹{{ product.price }}</p>
-
-            <p>{{ product.description }}</p>
-
-            <a href="/add_to_cart/{{ product.id }}">
-                <button>Add to Cart</button>
-            </a>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-    {% else %}
-
-    <h2>No Products Found 😔</h2>
-
-    {% endif %}
-
-    <footer>
-        <p>© 2026 People's Store | All Rights Reserved.</p>
-    </footer>
+<footer>
+    <p>© 2026 People's Store | All Rights Reserved.</p>
+</footer>
 
 </body>
 </html>
