@@ -1,7 +1,10 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, request, redirect, session
+from werkzeug.utils import secure_filename
+import os
 import sqlite3
 
 app = Flask(__name__)
+app.secret_key = "ecommerce_secret_key"
 conn = sqlite3.connect("database.db", check_same_thread=False)
 cursor = conn.cursor()
 
@@ -24,6 +27,8 @@ CREATE TABLE IF NOT EXISTS products(
     image TEXT,
     description TEXT,
     category TEXT
+    rating INTEGER DEFAULT 5,
+    stock INTEGER DEFAULT 10
 )
 """)
 conn.commit()
@@ -100,6 +105,8 @@ def home():
             "image": row[3],
             "description": row[4],
             "category": row[5],
+            "rating": row[6],
+            "stock": row[7],
             "quantity": 1
         })
 
@@ -145,6 +152,7 @@ def contact():
 def login():
 
     if request.method == "POST":
+
         email = request.form["email"]
         password = request.form["password"]
 
@@ -156,6 +164,7 @@ def login():
         user = cursor.fetchone()
 
         if user:
+            session["user"] = user[2]
             return redirect("/")
         else:
             return render_template(
@@ -330,17 +339,35 @@ def remove_from_cart(id):
 
 @app.route("/admin")
 def admin():
-    return render_template("admin.html")
+
+    cursor.execute("SELECT * FROM products")
+    rows = cursor.fetchall()
+
+    products = []
+
+    for row in rows:
+        products.append({
+            "id": row[0],
+            "name": row[1],
+            "price": row[2],
+            "image": row[3],
+            "description": row[4],
+            "category": row[5]
+        })
+
+    return render_template("admin.html", products=products)
 
 @app.route("/add_product", methods=["POST"])
 def add_product():
-    
-    print("ADD PRODUCT ROUTE CALLED")
 
     name = request.form["name"]
     price = request.form["price"]
     category = request.form["category"]
-    image = request.form["image"]
+
+    image = request.files["image"]
+    filename = secure_filename(image.filename)
+    image.save(os.path.join("static", "images", filename))
+
     description = request.form["description"]
 
     cursor.execute(
@@ -348,14 +375,70 @@ def add_product():
         INSERT INTO products(name, price, image, description, category)
         VALUES (?, ?, ?, ?, ?)
         """,
-        (name, price, image, description, category)
+        (name, price, filename, description, category)
     )
 
     conn.commit()
-    cursor.execute("SELECT * FROM products")
-    print(cursor.fetchall())
 
     return redirect("/admin")
+
+@app.route("/edit_product/<int:id>")
+def edit_product(id):
+
+    cursor.execute("SELECT * FROM products WHERE id=?", (id,))
+    row = cursor.fetchone()
+
+    product = {
+    "id": row[0],
+    "name": row[1],
+    "price": row[2],
+    "image": row[3],
+    "description": row[4],
+    "category": row[5],
+    "stock": row[7]
+}
+
+    return render_template("edit_product.html", product=product)
+
+    return "Product Not Found"
+@app.route("/delete_product/<int:id>")
+def delete_product(id):
+
+    cursor.execute(
+        "DELETE FROM products WHERE id=?",
+        (id,)
+    )
+
+    conn.commit()
+
+    return redirect("/admin")
+
+@app.route("/update_product/<int:id>", methods=["POST"])
+def update_product(id):
+
+    name = request.form["name"]
+    price = request.form["price"]
+    category = request.form["category"]
+    image = request.form["image"]
+    description = request.form["description"]
+    stock = request.form["stock"]
+
+    cursor.execute("""
+    UPDATE products
+    SET name=?, price=?, category=?, image=?, description=?, stock=?
+    WHERE id=?
+""", (name, price, category, image, description, stock, id))
+
+    conn.commit()
+
+    return redirect("/admin")
+
+@app.route("/logout")
+def logout():
+
+    session.pop("user", None)
+
+    return redirect("/login")
 
 @app.route("/checkout")
 def checkout():

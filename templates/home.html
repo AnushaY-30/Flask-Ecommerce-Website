@@ -13,6 +13,7 @@
     <a href="/contact">Contact</a>
     <a href="/login">Login</a>
     <a href="/register">Register</a>
+    <a href="/logout">Logout</a>
 </nav>
 
 <h1>🛒 People's Store</h1>
@@ -72,10 +73,27 @@
         <p>₹{{ product.price }}</p>
 
         <p>{{ product.description }}</p>
+        <p>
+    ⭐ {{ product.rating }}/5
+</p>
+<p>
+    📦 Stock: {{ product.stock }}
+</p>
 
-        <a href="/add_to_cart/{{ product.id }}">
-            <button>Add to Cart</button>
-        </a>
+        {% if product.stock > 0 %}
+
+<a href="/add_to_cart/{{ product.id }}">
+    <button>Add to Cart</button>
+</a>
+
+{% else %}
+
+<button disabled
+style="background:red; color:white;">
+    Out of Stock
+</button>
+
+{% endif %}
 
     </div>
 
