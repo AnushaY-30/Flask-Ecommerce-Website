@@ -21,14 +21,91 @@
 
         <h1>{{ product.name }}</h1>
 
-        <h2>₹{{ product.price }}</h2>
+    <h2>₹{{ product.price }}</h2>
 
-        <p>{{ product.description }}</p>
+<p style="font-size:18px; color:orange;">
+    ⭐ Average Rating: <b>{{ avg_rating }}/5</b>
+</p>
 
-        <button>Buy Now</button>
+<p>{{ product.description }}</p>
 
-        <br><br>
+<a href="/add_to_cart/{{ product.id }}" class="btn btn-primary">
+    🛒 Buy Now
+</a>
 
+<br><br>
+<hr>
+
+<h3>⭐ Write a Review</h3>
+
+<form action="/add_review/{{ product.id }}" method="POST">
+
+    <label>Rating (1-5)</label><br>
+
+    <input
+        type="number"
+        name="rating"
+        min="1"
+        max="5"
+        required>
+
+    <br><br>
+
+    <label>Comment</label><br>
+
+    <textarea
+        name="comment"
+        rows="4"
+        cols="40"
+        required></textarea>
+
+    <br><br>
+
+    <button type="submit" class="btn btn-success">
+        Submit Review
+    </button>
+
+</form>
+
+<br><br>
+<hr>
+
+<h3>⭐ Customer Reviews</h3>
+
+{% if reviews %}
+
+    {% for review in reviews %}
+
+        <div class="card shadow-sm mb-3">
+
+           <div class="card-body">
+
+    <h6 class="text-primary">
+        👤 {{ review[0] }}
+    </h6>
+
+    <p class="text-warning">
+        ⭐ {{ review[1] }}/5
+    </p>
+
+    <p>
+        {{ review[2] }}
+    </p>
+    <p style="color:gray; font-size:14px;">
+    📅 {{ review[3] }}
+</p>
+
+</div>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p>No reviews yet.</p>
+
+{% endif %}
         <a href="/">⬅ Back to Home</a>
 
     </div>

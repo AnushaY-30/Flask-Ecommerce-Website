@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <a href="/">🏠 Home</a>
+    <a href="/cart">🛒 Cart</a>
+    <a href="/logout">Logout</a>
+</nav>
+
+<h1>📦 My Orders</h1>
+
+{% if orders %}
+
+    {% for order in orders %}
+
+    <div class="card">
+
+        <h2>{{ order.name }}</h2>
+
+        <p><b>Price:</b> ₹{{ order.price }}</p>
+
+        <p><b>Quantity:</b> {{ order.quantity }}</p>
+
+        <p><b>Ordered On:</b> {{ order.date }}</p>
+
+    </div>
+
+    <br>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="card">
+
+    <h2>No Orders Yet</h2>
+
+    <p>You haven't placed any orders yet.</p>
+
+    <a href="/">
+        <button>Continue Shopping</button>
+    </a>
+
+</div>
+
+{% endif %}
+
+</body>
+</html>

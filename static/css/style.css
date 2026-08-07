@@ -146,3 +146,46 @@ footer{
     color: #2c3e50;
     margin-top: 10px;
 }
+.card{
+    transition: 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-8px);
+}
+/* Product Card Animation */
+
+.card{
+    transition: all 0.3s ease;
+    border-radius: 15px;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0px 12px 25px rgba(0,0,0,0.25);
+}
+
+.card img{
+    border-top-left-radius:15px;
+    border-top-right-radius:15px;
+}
+
+.card h5{
+    font-weight:bold;
+}
+
+.card p{
+    color:#555;
+}
+
+.btn{
+    border-radius:8px;
+}
+.card {
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+}
