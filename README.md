@@ -1,64 +1,96 @@
-# 🛒 Flask E-Commerce Website
+# 🛍️ Flask E-Commerce Website
 
-A simple E-Commerce website built using **Python, Flask, HTML, CSS, and SQLite**.
+A full-stack E-Commerce web application built using Python Flask, HTML, CSS, and SQLite. The application provides a complete online shopping experience with user authentication, product management, cart, wishlist, checkout, orders, reviews, and an admin dashboard.
 
-## 🚀 Features
+## 🚀 Live Website
+
+https://flask-ecommerce-website-1n5r.onrender.com
+
+## 📂 GitHub Repository
+
+https://github.com/AnushaY-30/Flask-Ecommerce-Website
+
+## ✨ Features
+
+### 👤 User Features
 
 - User Registration
-- User Login
-- Product Listing
+- User Login and Logout
+- Product Browsing
 - Product Search
-- Category Filter
+- Category Filtering
 - Product Details
 - Add to Cart
-- Increase / Decrease Quantity
-- Remove from Cart
+- Increase / Decrease Cart Quantity
+- Remove Products from Cart
+- Buy Now
 - Checkout
-- SQLite Database
+- Order History
+- Wishlist
+- Product Reviews and Ratings
+
+### 👨‍💼 Admin Features
+
+- Admin Login
+- Admin Dashboard
+- Add Products
+- Edit Products
+- Delete Products
+- Product Image Upload
+- Stock Management
+- Total Products Statistics
+- Total Users Statistics
+- Total Orders Statistics
+- Total Reviews Statistics
+- Recent Orders
 
 ## 🛠️ Technologies Used
 
 - Python
 - Flask
+- HTML5
+- CSS3
 - SQLite
-- HTML
-- CSS
+- Jinja2
+- Git
+- GitHub
+- Render
 
-## 📂 Project Structure
+## 🗄️ Database
 
-```
-Ecommerce/
+The application uses SQLite to store:
+
+- Users
+- Products
+- Cart Items
+- Orders
+- Reviews
+- Wishlist Data
+
+## 📁 Project Structure
+
+```text
+Flask-Ecommerce-Website/
 │
 ├── app.py
 ├── database.db
+├── add_products.py
 ├── requirements.txt
-├── templates/
+├── README.md
+│
 ├── static/
-└── README.md
-```
-
-## ▶️ How to Run
-
-1. Clone the repository.
-2. Create a virtual environment.
-3. Install dependencies:
-
-```
-pip install -r requirements.txt
-```
-
-4. Run the project:
-
-```
-python app.py
-```
-
-5. Open your browser:
-
-```
-http://127.0.0.1:5000
-```
-
-## 👨‍💻 Developed By
-
-**Yannam Anusha**
+│   ├── css/
+│   │   └── style.css
+│   │
+│   └── images/
+│
+└── templates/
+    ├── home.html
+    ├── login.html
+    ├── register.html
+    ├── product.html
+    ├── cart.html
+    ├── orders.html
+    ├── wishlist.html
+    ├── admin.html
+    └── ...
